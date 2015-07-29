@@ -1,4 +1,5 @@
-# generated from util-linux source: libmount/src/utils.c
+# generated from util-linux source:
+# awk -F'[" ]' '/pseudofs\[\]/,/}/ { if ($0 !~ /[{}]/) print $2 }' libmount/src/utils.c
 declare -A pseudofs_types=([anon_inodefs]=1
                            [autofs]=1
                            [bdev]=1
@@ -11,12 +12,14 @@ declare -A pseudofs_types=([anon_inodefs]=1
                            [devpts]=1
                            [devtmpfs]=1
                            [dlmfs]=1
+                           [efivarfs]=1
                            [fuse.gvfs-fuse-daemon]=1
                            [fusectl]=1
                            [hugetlbfs]=1
                            [mqueue]=1
                            [nfsd]=1
                            [none]=1
+                           [overlay]=1
                            [pipefs]=1
                            [proc]=1
                            [pstore]=1
