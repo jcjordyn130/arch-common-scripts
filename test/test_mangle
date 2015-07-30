@@ -3,6 +3,14 @@
 . "${1:-./common}"
 . ./test/common
 
-ASSERT_streq ' deleted' "$(unmangle "$(mangle ' deleted')")"
-ASSERT_streq '\040deleted' "$(mangle "$(unmangle '\040deleted')")"
-ASSERT_streq 'foo\011\040\011bar' "$(mangle $'foo\t \tbar')"
+test_one() {
+  local unmangled=$1 mangled=$2
+
+  EXPECT_streq "$mangled" "$(mangle "$unmangled")"
+  EXPECT_streq "$unmangled" "$(unmangle "$mangled")"
+}
+
+test_one ' ' '\040'
+test_one $'\t' '\011'
+test_one ' deleted' '\040deleted'
+test_one $'foo\t \tbar' 'foo\011\040\011bar'
